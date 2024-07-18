@@ -17,7 +17,7 @@ public sealed class Booking : Entity
         Money servicesPrice,
         Money pointsDiscount,
         Money totalPrice,
-        TimeRange range,
+        DateRange range,
         BookingStatus status,
         DateTime createdOneUtc) : base(id)
     {
@@ -38,7 +38,7 @@ public sealed class Booking : Entity
     public Money ServicesPrice {  get; private set; }
     public Money PointsDiscount { get; private set; }
     public Money TotalPrice { get; private set; }
-    public TimeRange Range { get; private set; }
+    public DateRange Range { get; private set; }
     public BookingStatus Status { get; private set; }
     public DateTime CreatedOneUtc { get; private set; }
     public DateTime? CompletedOnUtc { get; private set; }
@@ -49,7 +49,7 @@ public sealed class Booking : Entity
         Driver driver,
         ParkingLot parkingLot,
         PriceService priceService,
-        TimeRange timeRange,
+        DateRange timeRange,
         DateTime createdOneUtc,
         bool usePoints,
         int points)

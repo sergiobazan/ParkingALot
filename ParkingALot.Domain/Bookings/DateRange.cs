@@ -1,14 +1,14 @@
 ﻿namespace ParkingALot.Domain.Bookings;
 
-public sealed record TimeRange
+public sealed record DateRange
 {
-    private TimeRange() { }
+    private DateRange() { }
 
-    public TimeOnly Start { get; init; }
-    public TimeOnly End {  get; init; }
-    public int LengthInHours => End.Hour - Start.Hour;
+    public DateTime Start { get; init; }
+    public DateTime End {  get; init; }
+    public int LengthInHours => (int)(End - Start).TotalHours;
 
-    public static TimeRange Create(TimeOnly start, TimeOnly end)
+    public static DateRange Create(DateTime start, DateTime end)
     {
         if (start > end)
         {

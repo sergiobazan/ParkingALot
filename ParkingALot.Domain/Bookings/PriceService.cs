@@ -7,7 +7,7 @@ public class PriceService
 {
     public PricingDetails GetTotalPrice(
         ParkingLot parkingLot,
-        TimeRange range,
+        DateRange range,
         IReadOnlyList<BookingItem> bookingItems,
         bool usePoints,
         int points)
