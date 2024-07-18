@@ -1,4 +1,5 @@
 ﻿using ParkingALot.Domain.Abstractions;
+using ParkingALot.Domain.Shared;
 
 namespace ParkingALot.Domain.Drivers;
 
