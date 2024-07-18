@@ -7,21 +7,26 @@ public sealed class Driver : Entity
 {
     private readonly List<Vehicle> _vehicles = new();
     private const int PointsPerHour = 20;
+    private static readonly List<int> PointsValidForDiscount = new()
+    {
+        200,
+        300
+    };
 
     private Driver(
         Guid id,
         Name name,
         Email email,
-        Point total) : base(id)
+        Point totalPoints) : base(id)
     {
         Name = name;
         Email = email;
-        Total = total;
+        TotalPoints = totalPoints;
     }
 
     public Name Name { get; private set; }
     public Email Email { get; private set; }
-    public Point Total { get; private set; }
+    public Point TotalPoints { get; private set; }
     public IReadOnlyList<Vehicle> Vehicles => _vehicles.ToList();
 
     public static Driver Create(Name name, Email email)
@@ -40,6 +45,16 @@ public sealed class Driver : Entity
 
     public void AddPoints(int totalHours)
     {
-        Total += Point.Create(PointsPerHour * totalHours);
+        TotalPoints += Point.Create(PointsPerHour * totalHours);
+    }
+
+    public void UsePoints(int points)
+    {
+        if (!PointsValidForDiscount.Contains(points))
+        {
+            return;
+        }
+
+        TotalPoints -= Point.Create(points);
     }
 }

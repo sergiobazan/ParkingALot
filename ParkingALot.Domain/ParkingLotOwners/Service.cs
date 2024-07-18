@@ -1,7 +1,7 @@
 ﻿using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Shared;
 
-namespace ParkingALot.Domain.ParkingLotOwner;
+namespace ParkingALot.Domain.ParkingLotOwners;
 
 public sealed class Service : Entity
 {

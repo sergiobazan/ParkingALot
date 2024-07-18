@@ -1,4 +1,4 @@
-﻿namespace ParkingALot.Domain.ParkingLotOwner;
+﻿namespace ParkingALot.Domain.ParkingLotOwners;
 
 public sealed record Address(
     string Country,

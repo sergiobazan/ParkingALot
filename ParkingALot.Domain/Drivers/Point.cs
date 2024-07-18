@@ -19,6 +19,11 @@ public sealed record Point(int Total)
         return new(first.Total + second.Total);
     }
 
+    public static Point operator -(Point first, Point second)
+    {
+        return new(first.Total - second.Total);
+    }
+
     public static Point operator *(Point points, int multiplier)
     {
         if (multiplier < 0)

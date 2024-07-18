@@ -1,4 +1,4 @@
-﻿namespace ParkingALot.Domain.ParkingLotOwner;
+﻿namespace ParkingALot.Domain.Shared;
 
 public sealed record Currency(string Code)
 {

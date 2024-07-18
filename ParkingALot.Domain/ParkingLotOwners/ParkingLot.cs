@@ -1,7 +1,7 @@
 ﻿using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Shared;
 
-namespace ParkingALot.Domain.ParkingLotOwner;
+namespace ParkingALot.Domain.ParkingLotOwners;
 
 public sealed class ParkingLot : Entity
 {
@@ -13,6 +13,7 @@ public sealed class ParkingLot : Entity
         Name name,
         Description description,
         Address address,
+        Money pricePerHour,
         DateTime openAtUtc,
         DateTime closeAtUtc) : base(id)
     {
@@ -20,6 +21,7 @@ public sealed class ParkingLot : Entity
         Name = name;
         Description = description;
         Address = address;
+        PricePerHour = pricePerHour;
         OpenAtUtc = openAtUtc;
         CloseAtUtc = closeAtUtc;
     }
@@ -28,6 +30,7 @@ public sealed class ParkingLot : Entity
     public Name Name { get; private set; }
     public Description Description { get; private set; }
     public Address Address { get; private set; }
+    public Money PricePerHour { get; private set; }
     public DateTime OpenAtUtc { get; private set; }
     public DateTime CloseAtUtc { get; private set; }
     public IReadOnlyList<Service> Services => _services.ToList();

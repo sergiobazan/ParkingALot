@@ -1,7 +1,7 @@
 ﻿using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Shared;
 
-namespace ParkingALot.Domain.ParkingLotOwner;
+namespace ParkingALot.Domain.ParkingLotOwners;
 
 public sealed class ParkingLotOwner : Entity
 {
@@ -27,10 +27,11 @@ public sealed class ParkingLotOwner : Entity
         Name name,
         Description description,
         Address address,
+        Money pricePerHour,
         DateTime openAtUtc,
         DateTime closeAtUtc)
     {
-        var parkingLot = new ParkingLot(Guid.NewGuid(), Id, name, description, address, openAtUtc, closeAtUtc);
+        var parkingLot = new ParkingLot(Guid.NewGuid(), Id, name, description, address, pricePerHour, openAtUtc, closeAtUtc);
 
         _parkingLots.Add(parkingLot);
     }
