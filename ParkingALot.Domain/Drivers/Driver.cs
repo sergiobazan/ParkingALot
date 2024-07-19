@@ -1,4 +1,5 @@
 ﻿using ParkingALot.Domain.Abstractions;
+using ParkingALot.Domain.Drivers.DomainEvents;
 using ParkingALot.Domain.Shared;
 
 namespace ParkingALot.Domain.Drivers;
@@ -33,6 +34,8 @@ public sealed class Driver : Entity
     {
         var driver = new Driver(Guid.NewGuid(), name, email, Point.Zero());
 
+        driver.RaiseDomainEvent(new DriverCreatedDomainEvent(driver.Id));
+
         return driver;
     }
 
@@ -41,6 +44,8 @@ public sealed class Driver : Entity
         var vehicle = new Vehicle(Guid.NewGuid(), Id, brand, model, year);
 
         _vehicles.Add(vehicle);
+
+        vehicle.RaiseDomainEvent(new VehicleCreatedDomainEvent(vehicle.Id));
     }
 
     public void AddPoints(int totalHours)

@@ -1,4 +1,5 @@
 ﻿using ParkingALot.Domain.Abstractions;
+using ParkingALot.Domain.ParkingLotOwners.DomainEvents;
 using ParkingALot.Domain.Shared;
 
 namespace ParkingALot.Domain.ParkingLotOwners;
@@ -20,6 +21,8 @@ public sealed class ParkingLotOwner : Entity
     {
         var owner = new ParkingLotOwner(Guid.NewGuid(), name, email);
 
+        owner.RaiseDomainEvent(new ParkingLotOwnerCreatedDomainEvent(owner.Id));
+
         return owner;
     }
 
@@ -34,5 +37,7 @@ public sealed class ParkingLotOwner : Entity
         var parkingLot = new ParkingLot(Guid.NewGuid(), Id, name, description, address, pricePerHour, openAtUtc, closeAtUtc);
 
         _parkingLots.Add(parkingLot);
+
+        parkingLot.RaiseDomainEvent(new ParkingLotCreatedDomainEvent(parkingLot.Id));
     }
 }

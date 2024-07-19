@@ -1,5 +1,7 @@
-﻿namespace ParkingALot.Domain.Abstractions;
+﻿using MediatR;
 
-public interface IDomainEvent
+namespace ParkingALot.Domain.Abstractions;
+
+public interface IDomainEvent : INotification
 {
 }

@@ -1,4 +1,5 @@
 ﻿using ParkingALot.Domain.Abstractions;
+using ParkingALot.Domain.Bookings.DomainEvents;
 using ParkingALot.Domain.Drivers;
 using ParkingALot.Domain.ParkingLotOwners;
 using ParkingALot.Domain.Shared;
@@ -74,6 +75,8 @@ public sealed class Booking : Entity
         {
             driver.UsePoints(points);
         }
+
+        booking.RaiseDomainEvent(new BookingReservedDomainEvent(booking.Id));
 
         return booking;    
     }

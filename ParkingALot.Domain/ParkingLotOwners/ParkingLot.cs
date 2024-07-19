@@ -1,4 +1,5 @@
 ﻿using ParkingALot.Domain.Abstractions;
+using ParkingALot.Domain.ParkingLotOwners.DomainEvents;
 using ParkingALot.Domain.Shared;
 
 namespace ParkingALot.Domain.ParkingLotOwners;
@@ -44,5 +45,7 @@ public sealed class ParkingLot : Entity
         var service = new Service(Guid.NewGuid(), Id, name, description, price, imageUrl);
 
         _services.Add(service);
+
+        service.RaiseDomainEvent(new ServiceCreatedDomainEvent(service.Id));
     }
 }
