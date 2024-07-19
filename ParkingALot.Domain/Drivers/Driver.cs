@@ -50,7 +50,7 @@ public sealed class Driver : Entity
 
     public void AddPoints(int totalHours)
     {
-        TotalPoints += Point.Create(PointsPerHour * totalHours);
+        TotalPoints += Point.Create(PointsPerHour * totalHours).Value;
     }
 
     public void UsePoints(int points)
@@ -60,6 +60,6 @@ public sealed class Driver : Entity
             return;
         }
 
-        TotalPoints -= Point.Create(points);
+        TotalPoints -= Point.Create(points).Value;
     }
 }
