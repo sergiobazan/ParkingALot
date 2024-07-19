@@ -46,7 +46,7 @@ public sealed class Booking : Entity
     public DateTime? CancelledOnUtc { get; private set; }
     public IReadOnlyList<BookingItem> BookingItems => _bookingItems.ToList();
 
-    public Booking Reserve(
+    public Result<Booking> Reserve(
         Driver driver,
         ParkingLot parkingLot,
         PriceService priceService,

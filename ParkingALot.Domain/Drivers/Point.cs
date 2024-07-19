@@ -1,13 +1,15 @@
-﻿namespace ParkingALot.Domain.Drivers;
+﻿using ParkingALot.Domain.Abstractions;
+
+namespace ParkingALot.Domain.Drivers;
 
 public sealed record Point(int Total)
 {
-    public static Point Create(int total)
+    public static Result<Point> Create(int total)
     {
        if (total < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(total), "Points can't be negative");
-        }
+       {
+           return Result.Failure<Point>(DriverErrors.InvalidPoints); 
+       }
 
        return new Point(total);
     }

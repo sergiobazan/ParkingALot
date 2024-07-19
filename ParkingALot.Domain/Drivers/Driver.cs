@@ -30,7 +30,7 @@ public sealed class Driver : Entity
     public Point TotalPoints { get; private set; }
     public IReadOnlyList<Vehicle> Vehicles => _vehicles.ToList();
 
-    public static Driver Create(Name name, Email email)
+    public static Result<Driver> Create(Name name, Email email)
     {
         var driver = new Driver(Guid.NewGuid(), name, email, Point.Zero());
 

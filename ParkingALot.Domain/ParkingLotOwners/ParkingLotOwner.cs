@@ -17,7 +17,7 @@ public sealed class ParkingLotOwner : Entity
     public Email Email { get; private set; }
     public IReadOnlyList<ParkingLot> ParkingLots => _parkingLots.ToList();
 
-    public static ParkingLotOwner Create(Name name, Email email)
+    public static Result<ParkingLotOwner> Create(Name name, Email email)
     {
         var owner = new ParkingLotOwner(Guid.NewGuid(), name, email);
 

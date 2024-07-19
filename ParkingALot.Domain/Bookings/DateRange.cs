@@ -1,4 +1,6 @@
-﻿namespace ParkingALot.Domain.Bookings;
+﻿using ParkingALot.Domain.Abstractions;
+
+namespace ParkingALot.Domain.Bookings;
 
 public sealed record DateRange
 {
@@ -8,17 +10,19 @@ public sealed record DateRange
     public DateTime End {  get; init; }
     public int LengthInHours => (int)(End - Start).TotalHours;
 
-    public static DateRange Create(DateTime start, DateTime end)
+    public static Result<DateRange> Create(DateTime start, DateTime end)
     {
         if (start > end)
         {
-            throw new ApplicationException("End date precedes start date");
+            return Result.Failure<DateRange>(BookingErrors.InvalidDateRange);
         }
 
-        return new()
+        var dateRange = new DateRange()
         {
             Start = start,
             End = end,
         };
+
+        return dateRange;
     }
 }
