@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F9FF2BAD-DBE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingALot.Domain", "ParkingALot.Domain\ParkingALot.Domain.csproj", "{585EDB81-976C-4F0B-B5D3-C44B9DD4BA5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingALot.Application", "ParkingALot.Application\ParkingALot.Application.csproj", "{1194BFAE-16A3-4046-8B6E-B4A900E640B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingALot.Application", "ParkingALot.Application\ParkingALot.Application.csproj", "{1194BFAE-16A3-4046-8B6E-B4A900E640B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingALot.Infrastructure", "ParkingALot.Infrastructure\ParkingALot.Infrastructure.csproj", "{A2264B58-576A-4FF4-A7B0-EA142D8061BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{1194BFAE-16A3-4046-8B6E-B4A900E640B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1194BFAE-16A3-4046-8B6E-B4A900E640B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1194BFAE-16A3-4046-8B6E-B4A900E640B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2264B58-576A-4FF4-A7B0-EA142D8061BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2264B58-576A-4FF4-A7B0-EA142D8061BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2264B58-576A-4FF4-A7B0-EA142D8061BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2264B58-576A-4FF4-A7B0-EA142D8061BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{585EDB81-976C-4F0B-B5D3-C44B9DD4BA5E} = {F9FF2BAD-DBE1-43A8-BB66-6BC8AA1FE5D9}
 		{1194BFAE-16A3-4046-8B6E-B4A900E640B2} = {F9FF2BAD-DBE1-43A8-BB66-6BC8AA1FE5D9}
+		{A2264B58-576A-4FF4-A7B0-EA142D8061BC} = {F9FF2BAD-DBE1-43A8-BB66-6BC8AA1FE5D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {203FE883-0BBD-4704-8CED-327C2FC3254E}
