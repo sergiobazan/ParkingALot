@@ -39,13 +39,15 @@ public sealed class Driver : Entity
         return driver;
     }
 
-    public void AddVehicle(Brand brand, Model model, DateOnly year)
+    public Result<Vehicle> AddVehicle(Brand brand, Model model, DateOnly year)
     {
         var vehicle = new Vehicle(Guid.NewGuid(), Id, brand, model, year);
 
         _vehicles.Add(vehicle);
 
         vehicle.RaiseDomainEvent(new VehicleCreatedDomainEvent(vehicle.Id));
+
+        return vehicle;
     }
 
     public void AddPoints(int totalHours)
