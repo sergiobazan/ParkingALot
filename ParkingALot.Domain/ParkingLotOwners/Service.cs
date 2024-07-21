@@ -5,6 +5,7 @@ namespace ParkingALot.Domain.ParkingLotOwners;
 
 public sealed class Service : Entity
 {
+    private Service() { }
     internal Service(
         Guid id,
         Guid parkingLotId,

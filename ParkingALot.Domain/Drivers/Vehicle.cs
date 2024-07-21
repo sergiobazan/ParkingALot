@@ -4,6 +4,7 @@ namespace ParkingALot.Domain.Drivers;
 
 public sealed class Vehicle : Entity
 {
+    private Vehicle() { }
     internal Vehicle(
         Guid id,
         Guid driverId,

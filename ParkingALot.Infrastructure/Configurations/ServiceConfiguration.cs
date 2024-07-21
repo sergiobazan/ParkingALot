@@ -27,10 +27,5 @@ internal sealed class ServiceConfiguration : IEntityTypeConfiguration<Service>
 
         builder.Property(service => service.ImageUrl)
             .HasConversion(imageUrl => imageUrl.Value, value => new Image(value));
-
-        builder
-            .HasOne<ParkingLot>()
-            .WithMany()
-            .HasForeignKey(service => service.ParkingLotId);
     }
 }

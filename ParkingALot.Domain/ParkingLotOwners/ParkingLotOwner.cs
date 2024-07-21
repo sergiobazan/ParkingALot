@@ -7,6 +7,7 @@ namespace ParkingALot.Domain.ParkingLotOwners;
 public sealed class ParkingLotOwner : Entity
 {
     private readonly List<ParkingLot> _parkingLots = new();
+    private ParkingLotOwner() { }
     private ParkingLotOwner(Guid id, Name name, Email email) : base(id)
     {
         Name = name;

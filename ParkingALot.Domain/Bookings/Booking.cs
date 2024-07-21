@@ -9,7 +9,7 @@ namespace ParkingALot.Domain.Bookings;
 public sealed class Booking : Entity
 {
     private readonly List<BookingItem> _bookingItems = new();
-
+    private Booking() { }
     private Booking(
         Guid id,
         Guid driverId,

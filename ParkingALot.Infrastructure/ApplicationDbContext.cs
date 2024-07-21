@@ -3,9 +3,9 @@ using ParkingALot.Domain.Abstractions;
 
 namespace ParkingALot.Infrastructure;
 
-internal class ApplicationDbContext : DbContext, IUnitOfWork
+public class ApplicationDbContext : DbContext, IUnitOfWork
 {
-    protected ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     { }
 

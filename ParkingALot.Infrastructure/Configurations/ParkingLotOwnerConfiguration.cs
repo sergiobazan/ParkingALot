@@ -18,9 +18,13 @@ internal sealed class ParkingLotOwnerConfiguration : IEntityTypeConfiguration<Pa
            .HasMaxLength(50);
 
         builder.Property(owner => owner.Email)
-            .HasConversion(email => email.Value, value => new Email(value))
+            .HasConversion(email => email.Value, value => new Domain.Shared.Email(value))
             .HasMaxLength(50);
 
         builder.HasIndex(owner => owner.Email).IsUnique();
+
+        builder.HasMany(owner => owner.ParkingLots)
+            .WithOne()
+            .HasForeignKey(parking => parking.ParkingLotOwnerId);
     }
 }

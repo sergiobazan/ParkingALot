@@ -41,14 +41,8 @@ internal sealed class BookingConfiguration : IEntityTypeConfiguration<Booking>
 
         builder.OwnsOne(booking => booking.Range);
 
-        builder
-            .HasOne<Driver>()
-            .WithMany()
-            .HasForeignKey(booking => booking.DriverId);
-
-        builder
-            .HasOne<ParkingLot>()
-            .WithMany()
-            .HasForeignKey(booking => booking.ParkingLotId);
+        builder.HasMany(booking => booking.BookingItems)
+            .WithOne()
+            .HasForeignKey(item => item.BookingId);
     }
 }

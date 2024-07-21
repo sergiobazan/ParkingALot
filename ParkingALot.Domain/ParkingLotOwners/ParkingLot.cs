@@ -7,7 +7,7 @@ namespace ParkingALot.Domain.ParkingLotOwners;
 public sealed class ParkingLot : Entity
 {
     private readonly List<Service> _services = new();
-
+    private ParkingLot() { }
     internal ParkingLot(
         Guid id,
         Guid parkingLotOwnerId,

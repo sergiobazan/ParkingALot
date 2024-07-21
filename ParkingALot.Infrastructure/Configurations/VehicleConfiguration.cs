@@ -17,5 +17,6 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 
         builder.Property(vehicle => vehicle.Model)
             .HasConversion(model => model.Value, value => new Model(value));
+
     }
 }

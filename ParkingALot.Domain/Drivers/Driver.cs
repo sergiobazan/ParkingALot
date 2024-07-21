@@ -13,7 +13,7 @@ public sealed class Driver : Entity
         200,
         300
     };
-
+    private Driver() { }
     private Driver(
         Guid id,
         Name name,

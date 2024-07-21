@@ -5,6 +5,7 @@ namespace ParkingALot.Domain.Bookings;
 
 public sealed class BookingItem : Entity
 {
+    private BookingItem() { }
     internal BookingItem(Guid id, Guid bookingId, Guid serviceId, Money price) : base(id)
     {
         BookingId = bookingId;

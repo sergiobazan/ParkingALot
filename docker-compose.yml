@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  parkingalot.api:
+    image: ${DOCKER_REGISTRY-}parkingalotapi
+    build:
+      context: .
+      dockerfile: ParkingALot.API/Dockerfile
+    depends_on:
+      - parkingalot-db
+
+  parkingalot-db:
+    image: postgres:latest
+    container_name: ParkingALot.Db
+    environment:
+      - POSTGRES_DB=parkingalot
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"

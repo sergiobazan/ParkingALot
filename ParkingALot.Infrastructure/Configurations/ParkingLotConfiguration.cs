@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ParkingALot.Domain.Bookings;
 using ParkingALot.Domain.ParkingLotOwners;
 using ParkingALot.Domain.Shared;
 
@@ -28,9 +29,12 @@ internal sealed class ParkingLotConfiguration : IEntityTypeConfiguration<Parking
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder
-            .HasOne<ParkingLotOwner>()
-            .WithMany()
-            .HasForeignKey(p => p.ParkingLotOwnerId);
+        builder.HasMany(parking => parking.Services)
+            .WithOne()
+            .HasForeignKey(service => service.ParkingLotId);
+
+        builder.HasMany<Booking>()
+            .WithOne()
+            .HasForeignKey(booking => booking.ParkingLotId);
     }
 }
