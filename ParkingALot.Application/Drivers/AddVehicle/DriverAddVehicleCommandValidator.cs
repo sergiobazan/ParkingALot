@@ -2,7 +2,7 @@
 
 namespace ParkingALot.Application.Drivers.AddVehicle;
 
-internal sealed class DriverAddVehicleCommandValidator : AbstractValidator<DriverAddVehicleCommand>
+public sealed class DriverAddVehicleCommandValidator : AbstractValidator<DriverAddVehicleCommand>
 {
     public DriverAddVehicleCommandValidator()
     {

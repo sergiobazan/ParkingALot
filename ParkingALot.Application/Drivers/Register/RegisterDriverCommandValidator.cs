@@ -2,7 +2,7 @@
 
 namespace ParkingALot.Application.Drivers.Register;
 
-internal class RegisterDriverCommandValidator : AbstractValidator<RegisterDriverCommand>
+public class RegisterDriverCommandValidator : AbstractValidator<RegisterDriverCommand>
 {
     public RegisterDriverCommandValidator()
     {

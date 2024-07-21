@@ -2,7 +2,7 @@
 
 namespace ParkingALot.Application.ParkingLotOwners.Register;
 
-internal sealed class RegisterParkingLotOwnerCommandValidator : AbstractValidator<RegisterParkingLotOwnerCommand>
+public sealed class RegisterParkingLotOwnerCommandValidator : AbstractValidator<RegisterParkingLotOwnerCommand>
 {
     public RegisterParkingLotOwnerCommandValidator()
     {
