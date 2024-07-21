@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ParkingALot.Application.Abstractions.Email;
 using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Drivers;
+using ParkingALot.Domain.ParkingLotOwners;
 using ParkingALot.Infrastructure.Email;
 using ParkingALot.Infrastructure.Repositories;
 
@@ -26,6 +27,7 @@ public static class DependencyInjection
 
         services.AddScoped<IDriversRepository, DriverRepository>();
         services.AddScoped<IVehicleRepository, VehicleRepository>();
+        services.AddScoped<IParkingLotOwnerRepository, ParkingLotOwnerRepository>();
 
         return services;
     }

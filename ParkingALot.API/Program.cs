@@ -1,4 +1,5 @@
 using ParkingALot.API.Endpoints.Drivers;
+using ParkingALot.API.Endpoints.ParkingLotOwners;
 using ParkingALot.API.Extensions;
 using ParkingALot.Application;
 using ParkingALot.Infrastructure;
@@ -25,5 +26,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.AddDriversEndpoints();
+app.AddParkingLotOwnerEndpoints();
 
 app.Run();
