@@ -25,6 +25,7 @@ public static class DependencyInjection
             sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IDriversRepository, DriverRepository>();
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
 
         return services;
     }

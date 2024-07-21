@@ -7,11 +7,13 @@ namespace ParkingALot.Application.Drivers.AddVehicle;
 internal sealed class DriverAddVehicleCommandHandler : ICommandHandler<DriverAddVehicleCommand, Guid>
 {
     private readonly IDriversRepository _driversRepository;
+    private readonly IVehicleRepository _vehicleRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DriverAddVehicleCommandHandler(IDriversRepository driversRepository, IUnitOfWork unitOfWork)
+    public DriverAddVehicleCommandHandler(IDriversRepository driversRepository, IVehicleRepository vehicleRepository, IUnitOfWork unitOfWork)
     {
         _driversRepository = driversRepository;
+        _vehicleRepository = vehicleRepository;
         _unitOfWork = unitOfWork;
     }
 
@@ -28,6 +30,8 @@ internal sealed class DriverAddVehicleCommandHandler : ICommandHandler<DriverAdd
             new Brand(request.Brand), 
             new Model(request.Model), 
             request.Year);
+
+        _vehicleRepository.Add(vehicleResult.Value);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -19,6 +19,9 @@ internal class DriverRepository : IDriversRepository
 
     public async Task<Driver?> GetByIdAsync(Guid id)
     {
-        return await _context.Set<Driver>().FirstOrDefaultAsync(driver => driver.Id == id);
+        return await _context
+            .Set<Driver>()
+            .Include(driver => driver.Vehicles)
+            .FirstOrDefaultAsync(driver => driver.Id == id);
     }
 }

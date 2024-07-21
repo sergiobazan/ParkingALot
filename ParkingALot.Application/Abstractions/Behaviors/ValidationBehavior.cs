@@ -10,7 +10,7 @@ internal class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequ
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-    public ValidationBehavior(ICollection<IValidator<TRequest>> validators)
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
