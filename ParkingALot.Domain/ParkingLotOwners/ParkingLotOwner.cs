@@ -27,7 +27,7 @@ public sealed class ParkingLotOwner : Entity
         return owner;
     }
 
-    public void AddParkingLot(
+    public Result<ParkingLot> AddParkingLot(
         Name name,
         Description description,
         Address address,
@@ -40,5 +40,7 @@ public sealed class ParkingLotOwner : Entity
         _parkingLots.Add(parkingLot);
 
         parkingLot.RaiseDomainEvent(new ParkingLotCreatedDomainEvent(parkingLot.Id));
+
+        return parkingLot;
     }
 }
