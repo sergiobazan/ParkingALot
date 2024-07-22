@@ -36,7 +36,7 @@ public sealed class ParkingLot : Entity
     public DateTime CloseAtUtc { get; private set; }
     public IReadOnlyList<Service> Services => _services.ToList();
 
-    public void AddService(
+    public Result<Service> AddService(
         Name name,
         Description description,
         Money price,
@@ -47,5 +47,7 @@ public sealed class ParkingLot : Entity
         _services.Add(service);
 
         service.RaiseDomainEvent(new ServiceCreatedDomainEvent(service.Id));
+
+        return service;
     }
 }

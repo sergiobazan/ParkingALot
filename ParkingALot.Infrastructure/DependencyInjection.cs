@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddScoped<IVehicleRepository, VehicleRepository>();
         services.AddScoped<IParkingLotOwnerRepository, ParkingLotOwnerRepository>();
         services.AddScoped<IParkingLotRepository, ParkingLotRepository>();
+        services.AddScoped<IServiceRepository, ServiceRepository>();
 
         return services;
     }
