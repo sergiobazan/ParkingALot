@@ -8,7 +8,7 @@ public class PriceService
     public PricingDetails GetTotalPrice(
         ParkingLot parkingLot,
         DateRange range,
-        IReadOnlyList<BookingItem> bookingItems,
+        IEnumerable<BookingItem> bookingItems,
         bool usePoints,
         int points)
     {
@@ -17,7 +17,7 @@ public class PriceService
         var priceForPeriod = parkingLot.PricePerHour * range.LengthInHours;
 
         var servicesPrice = Money.Zero(currency);
-
+ 
         foreach (BookingItem item in bookingItems)
         {
             servicesPrice += item.Price;

@@ -46,7 +46,7 @@ public sealed class Booking : Entity
     public DateTime? CancelledOnUtc { get; private set; }
     public IReadOnlyList<BookingItem> BookingItems => _bookingItems.ToList();
 
-    public Result<Booking> Reserve(
+    public static Result<Booking> Reserve(
         Driver driver,
         ParkingLot parkingLot,
         PriceService priceService,
@@ -55,7 +55,13 @@ public sealed class Booking : Entity
         bool usePoints,
         int points)
     {
-        var pricingDetails = priceService.GetTotalPrice(parkingLot, timeRange, _bookingItems, usePoints, points);
+        var pricingDetails = priceService
+            .GetTotalPrice(
+            parkingLot, 
+            timeRange, 
+            Enumerable.Empty<BookingItem>(), 
+            usePoints, 
+            points);
 
         var booking = new Booking(
             Guid.NewGuid(),
@@ -69,7 +75,7 @@ public sealed class Booking : Entity
             BookingStatus.Reserved,
             createdOneUtc);
 
-        driver.AddPoints(Range.LengthInHours);
+        driver.AddPoints(timeRange.LengthInHours);
 
         if (usePoints)
         {

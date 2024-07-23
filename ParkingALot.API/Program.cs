@@ -1,3 +1,4 @@
+using ParkingALot.API.Endpoints.Bookings;
 using ParkingALot.API.Endpoints.Drivers;
 using ParkingALot.API.Endpoints.ParkingLotOwners;
 using ParkingALot.API.Extensions;
@@ -31,5 +32,7 @@ app.UseMiddleware<ValidationMiddleware>();
 app.AddDriversEndpoints();
 
 app.AddParkingLotOwnerEndpoints();
+
+app.AddBookinEndpoints();
 
 app.Run();
