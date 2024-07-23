@@ -51,17 +51,9 @@ public sealed class Booking : Entity
         ParkingLot parkingLot,
         PriceService priceService,
         DateRange timeRange,
-        DateTime createdOneUtc,
-        bool usePoints,
-        int points)
+        DateTime createdOneUtc)
     {
-        var pricingDetails = priceService
-            .GetTotalPrice(
-            parkingLot, 
-            timeRange, 
-            Enumerable.Empty<BookingItem>(), 
-            usePoints, 
-            points);
+        var pricingDetails = priceService.GetTotalPrice(parkingLot, timeRange, Enumerable.Empty<BookingItem>());
 
         var booking = new Booking(
             Guid.NewGuid(),
@@ -77,20 +69,33 @@ public sealed class Booking : Entity
 
         driver.AddPoints(timeRange.LengthInHours);
 
-        if (usePoints)
-        {
-            driver.UsePoints(points);
-        }
-
         booking.RaiseDomainEvent(new BookingReservedDomainEvent(booking.Id));
 
         return booking;    
     }
 
-    public void AddBookingItem(Guid serviceId, Money price)
+    public Result<BookingItem> AddBookingItem(Service service)
     {
-        var bookingItem = new BookingItem(Guid.NewGuid(), Id, serviceId, price);
+        var bookingItem = new BookingItem(Guid.NewGuid(), Id, service.Id, service.Price);
 
         _bookingItems.Add(bookingItem);
+
+        RaiseDomainEvent(new ServiceAddedToBookingDomainEvent(Id, ParkingLotId));
+
+        return bookingItem;
+    }
+
+    public void RecalculatePrices(
+        ParkingLot parkingLot,
+        PriceService priceService,
+        bool usePoints = false,
+        int points = 0)
+    {
+        var pricingDetails = priceService.GetTotalPrice(parkingLot, Range, _bookingItems, usePoints, points);
+
+        PriceForPeriod = pricingDetails.PriceForPeriod;
+        ServicesPrice = pricingDetails.ServicesPrice;
+        PointsDiscount = pricingDetails.PointsDiscount;
+        TotalPrice = pricingDetails.TotalPrice;
     }
 }

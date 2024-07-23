@@ -4,6 +4,4 @@ public sealed record ReserveBookingRequest(
     Guid DriverId,
     Guid ParkingLotId,
     DateTime Start,
-    DateTime End,
-    bool UsePoints,
-    int Points);
+    DateTime End);

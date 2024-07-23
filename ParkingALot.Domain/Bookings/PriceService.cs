@@ -9,8 +9,8 @@ public class PriceService
         ParkingLot parkingLot,
         DateRange range,
         IEnumerable<BookingItem> bookingItems,
-        bool usePoints,
-        int points)
+        bool usePoints = false,
+        int points = 0)
     {
         var currency = parkingLot.PricePerHour.Currency;
 

@@ -10,6 +10,7 @@ internal sealed class ParkingLotOwnerRepository(ApplicationDbContext context)
     {
         return await _context
             .Set<ParkingLotOwner>()
+            .AsSplitQuery()
             .Include(owner => owner.ParkingLots)
             .FirstOrDefaultAsync(owner => owner.Id == id);
     }

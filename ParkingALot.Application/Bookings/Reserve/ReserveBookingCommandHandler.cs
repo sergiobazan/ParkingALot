@@ -43,9 +43,7 @@ internal sealed class ReserveBookingCommandHandler(
             parkingLot,
             priceService,
             range.Value,
-            dateTimeProvider.UtcNow,
-            request.UsePoints,
-            request.Points);
+            dateTimeProvider.UtcNow);
 
         bookingRepository.Add(booking.Value);
 

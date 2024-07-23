@@ -6,6 +6,4 @@ public sealed record ReserveBookingCommand(
     Guid DriverId,
     Guid ParkingLotId,
     DateTime Start,
-    DateTime End,
-    bool UsePoints,
-    int Points) : ICommand<Guid>;
+    DateTime End) : ICommand<Guid>;
