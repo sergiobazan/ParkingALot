@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParkingALot.API.Endpoints.Bookings.Requests;
 using ParkingALot.Application.Bookings.AddService;
 using ParkingALot.Application.Bookings.Reserve;
+using ParkingALot.Application.Bookings.UsePoints;
 
 namespace ParkingALot.API.Endpoints.Bookings;
 
@@ -28,7 +29,7 @@ public static class BookingEndpoints
             return Results.Created($"bookings/{result.Value}", result.Value);
         });
 
-        app.MapPost("bookings/{id}/item", async (Guid bookingId, AddServiceBookingRequest request, ISender sender) =>
+        app.MapPost("bookings/{bookingId}/item", async (Guid bookingId, AddServiceBookingRequest request, ISender sender) =>
         {
             var command = new AddServiceBookingCommand(
                 bookingId,
@@ -41,7 +42,23 @@ public static class BookingEndpoints
                 return Results.BadRequest(result.Error);
             }
 
-            return Results.Created();
+            return Results.Ok();
+        });
+
+        app.MapPost("bookings/drives/points", async (DriverUsePointsRequest request, ISender sender) =>
+        {
+            var command = new DriverUsePointsCommand(
+                request.BookingId,
+                request.Points);
+
+            var result = await sender.Send(command);
+
+            if (result.IsFailure)
+            {
+                return Results.BadRequest(result.Error);
+            }
+
+            return Results.Ok();
         });
     }
 }
