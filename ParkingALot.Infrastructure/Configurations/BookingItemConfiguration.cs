@@ -20,8 +20,9 @@ internal sealed class BookingItemConfiguration : IEntityTypeConfiguration<Bookin
                 .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
-        builder.HasOne<Service>()
-            .WithOne()
-            .HasForeignKey<BookingItem>(item => item.ServiceId);
+        builder
+            .HasOne<Service>()
+            .WithMany()
+            .HasForeignKey(item => item.ServiceId);
     }
 }
