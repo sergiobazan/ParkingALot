@@ -34,5 +34,7 @@ internal sealed class DriverConfiguration : IEntityTypeConfiguration<Driver>
         builder.HasMany<Booking>()
             .WithOne()
             .HasForeignKey(booking => booking.DriverId);
+
+        builder.Property<uint>("Version").IsRowVersion();
     }
 }

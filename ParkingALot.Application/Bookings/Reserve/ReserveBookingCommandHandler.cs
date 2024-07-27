@@ -1,5 +1,6 @@
 ﻿using ParkingALot.Application.Abstractions.Clock;
 using ParkingALot.Application.Abstractions.Messaging;
+using ParkingALot.Application.Exceptions;
 using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Bookings;
 using ParkingALot.Domain.Drivers;
@@ -38,17 +39,29 @@ internal sealed class ReserveBookingCommandHandler(
             return Result.Failure<Guid>(BookingErrors.InvalidDateRange);
         }
 
-        var booking = Booking.Reserve(
+        if (await bookingRepository.IsOverlaping(parkingLot, range.Value, cancellationToken))
+        {
+            return Result.Failure<Guid>(BookingErrors.Overlap);
+        }
+
+        try
+        {
+            var booking = Booking.Reserve(
             driver,
             parkingLot,
             priceService,
             range.Value,
             dateTimeProvider.UtcNow);
 
-        bookingRepository.Add(booking.Value);
+            bookingRepository.Add(booking.Value);
 
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return booking.Value.Id;
+            return booking.Value.Id;
+        }
+        catch (ConcurrencyException)
+        {
+            return Result.Failure<Guid>(BookingErrors.Overlap);
+        }
     }
 }
