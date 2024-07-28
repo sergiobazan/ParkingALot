@@ -6,4 +6,4 @@ public sealed record DriverAddVehicleCommand(
     Guid DriverId,
     string Brand,
     string Model,
-    DateOnly Year) : ICommand<Guid>;
+    int Year) : ICommand<Guid>;

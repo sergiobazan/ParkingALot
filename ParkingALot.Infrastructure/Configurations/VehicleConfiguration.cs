@@ -12,11 +12,7 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 
         builder.HasKey(vehicle => vehicle.Id);
 
-        builder.Property(vehicle => vehicle.Brand)
-            .HasConversion(vehicle => vehicle.Value, value => new Brand(value));
-
-        builder.Property(vehicle => vehicle.Model)
-            .HasConversion(model => model.Value, value => new Model(value));
+        builder.OwnsOne(vehicle => vehicle.Characteristics);
 
     }
 }

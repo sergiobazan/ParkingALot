@@ -39,9 +39,9 @@ public sealed class Driver : Entity
         return driver;
     }
 
-    public Result<Vehicle> AddVehicle(Brand brand, Model model, DateOnly year)
+    public Result<Vehicle> AddVehicle(Details characteristics)
     {
-        var vehicle = new Vehicle(Guid.NewGuid(), Id, brand, model, year);
+        var vehicle = new Vehicle(Guid.NewGuid(), Id, characteristics);
 
         _vehicles.Add(vehicle);
 

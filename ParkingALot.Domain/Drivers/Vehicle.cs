@@ -8,18 +8,12 @@ public sealed class Vehicle : Entity
     internal Vehicle(
         Guid id,
         Guid driverId,
-        Brand brand,
-        Model model,
-        DateOnly year) : base(id)
+        Details characteristics) : base(id)
     {
         DriverId = driverId;
-        Brand = brand;
-        Model = model;
-        Year = year;
+        Characteristics = characteristics;
     }
 
     public Guid DriverId { get; private set; }
-    public Brand Brand { get; private set; }
-    public Model Model { get; private set; }
-    public DateOnly Year { get; private set; }
+    public Details Characteristics { get; set; }
 }

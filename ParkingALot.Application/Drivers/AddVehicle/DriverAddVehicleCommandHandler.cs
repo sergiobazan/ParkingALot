@@ -27,9 +27,10 @@ internal sealed class DriverAddVehicleCommandHandler : ICommandHandler<DriverAdd
         }
 
         Result<Vehicle> vehicleResult = driver.AddVehicle(
-            new Brand(request.Brand), 
-            new Model(request.Model), 
-            request.Year);
+            new Details(
+                request.Brand,
+                request.Model,
+                request.Year));
 
         _vehicleRepository.Add(vehicleResult.Value);
 

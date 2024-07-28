@@ -138,23 +138,9 @@ namespace ParkingALot.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("brand");
-
                     b.Property<Guid>("DriverId")
                         .HasColumnType("uuid")
                         .HasColumnName("driver_id");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("model");
-
-                    b.Property<DateOnly>("Year")
-                        .HasColumnType("date")
-                        .HasColumnName("year");
 
                     b.HasKey("Id")
                         .HasName("pk_vehicles");
@@ -470,6 +456,38 @@ namespace ParkingALot.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_vehicles_drivers_driver_id");
+
+                    b.OwnsOne("ParkingALot.Domain.Drivers.Details", "Characteristics", b1 =>
+                        {
+                            b1.Property<Guid>("VehicleId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("Brand")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("characteristics_brand");
+
+                            b1.Property<string>("Model")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("characteristics_model");
+
+                            b1.Property<int>("Year")
+                                .HasColumnType("integer")
+                                .HasColumnName("characteristics_year");
+
+                            b1.HasKey("VehicleId");
+
+                            b1.ToTable("vehicles");
+
+                            b1.WithOwner()
+                                .HasForeignKey("VehicleId")
+                                .HasConstraintName("fk_vehicles_vehicles_id");
+                        });
+
+                    b.Navigation("Characteristics")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ParkingALot.Domain.ParkingLotOwners.ParkingLot", b =>

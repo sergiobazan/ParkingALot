@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ParkingALot.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_Entities : Migration
+    public partial class Create_Database : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,8 @@ namespace ParkingALot.Infrastructure.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    total_points = table.Column<int>(type: "integer", nullable: false)
+                    total_points = table.Column<int>(type: "integer", nullable: false),
+                    xmin = table.Column<uint>(type: "xid", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,9 +45,9 @@ namespace ParkingALot.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     driver_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    brand = table.Column<string>(type: "text", nullable: false),
-                    model = table.Column<string>(type: "text", nullable: false),
-                    year = table.Column<DateOnly>(type: "date", nullable: false)
+                    characteristics_brand = table.Column<string>(type: "text", nullable: false),
+                    characteristics_model = table.Column<string>(type: "text", nullable: false),
+                    characteristics_year = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -184,8 +185,7 @@ namespace ParkingALot.Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_booking_items_service_id",
                 table: "booking_items",
-                column: "service_id",
-                unique: true);
+                column: "service_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_bookings_driver_id",
