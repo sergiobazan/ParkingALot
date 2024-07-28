@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParkingALot.API.Endpoints.Bookings.Requests;
 using ParkingALot.Application.Bookings.AddService;
 using ParkingALot.Application.Bookings.Reserve;
+using ParkingALot.Application.Bookings.SearchBooking;
 using ParkingALot.Application.Bookings.UsePoints;
 
 namespace ParkingALot.API.Endpoints.Bookings;
@@ -59,6 +60,15 @@ public static class BookingEndpoints
             }
 
             return Results.Ok();
+        });
+
+        app.MapGet("bookings/search", async (DateTime start, DateTime end, ISender sender) =>
+        {
+            var query = new SearchBookingQuery(start, end);
+
+            var result = await sender.Send(query);
+
+            return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result.Value);
         });
     }
 }

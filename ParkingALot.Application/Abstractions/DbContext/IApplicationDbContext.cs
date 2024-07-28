@@ -8,5 +8,6 @@ public interface IApplicationDbContext
 {
     DbSet<Driver> Drivers { get; }
     DbSet<ParkingLotOwner> ParkingLotOwners { get; }
+    DbSet<ParkingLot> ParkingLots { get; }
     DbSet<Booking> Bookings { get; }
 }

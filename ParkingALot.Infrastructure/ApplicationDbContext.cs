@@ -16,6 +16,7 @@ public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContex
 
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<ParkingLotOwner> ParkingLotOwners { get; set; }
+    public DbSet<ParkingLot> ParkingLots { get; set; }
     public DbSet<Booking> Bookings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
