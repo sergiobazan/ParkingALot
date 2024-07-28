@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParkingALot.Application.Abstractions.Clock;
+using ParkingALot.Application.Abstractions.DbContext;
 using ParkingALot.Application.Abstractions.Email;
 using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Bookings;
@@ -27,6 +28,9 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
 
         services.AddScoped<IUnitOfWork>(sp =>
+            sp.GetRequiredService<ApplicationDbContext>());
+
+        services.AddScoped<IApplicationDbContext>(sp =>
             sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<IDriversRepository, DriverRepository>();
