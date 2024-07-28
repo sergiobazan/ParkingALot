@@ -15,8 +15,8 @@ public sealed class ParkingLot : Entity
         Description description,
         Address address,
         Money pricePerHour,
-        DateTime openAtUtc,
-        DateTime closeAtUtc) : base(id)
+        TimeOnly openAtUtc,
+        TimeOnly closeAtUtc) : base(id)
     {
         ParkingLotOwnerId = parkingLotOwnerId;
         Name = name;
@@ -32,8 +32,8 @@ public sealed class ParkingLot : Entity
     public Description Description { get; private set; }
     public Address Address { get; private set; }
     public Money PricePerHour { get; private set; }
-    public DateTime OpenAtUtc { get; private set; }
-    public DateTime CloseAtUtc { get; private set; }
+    public TimeOnly OpenAtUtc { get; private set; }
+    public TimeOnly CloseAtUtc { get; private set; }
     public IReadOnlyList<Service> Services => _services.ToList();
 
     public Result<Service> AddService(

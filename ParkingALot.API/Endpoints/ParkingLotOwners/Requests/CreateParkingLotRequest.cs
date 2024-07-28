@@ -10,5 +10,5 @@ public sealed record CreateParkingLotRequest(
     string Street,
     decimal Amount,
     string CurrencyCode,
-    DateTime OpenAtUtc,
-    DateTime CloseAtUtc);
+    TimeOnly OpenAtUtc,
+    TimeOnly CloseAtUtc);

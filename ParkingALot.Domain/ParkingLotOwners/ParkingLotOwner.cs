@@ -32,8 +32,8 @@ public sealed class ParkingLotOwner : Entity
         Description description,
         Address address,
         Money pricePerHour,
-        DateTime openAtUtc,
-        DateTime closeAtUtc)
+        TimeOnly openAtUtc,
+        TimeOnly closeAtUtc)
     {
         var parkingLot = new ParkingLot(Guid.NewGuid(), Id, name, description, address, pricePerHour, openAtUtc, closeAtUtc);
 

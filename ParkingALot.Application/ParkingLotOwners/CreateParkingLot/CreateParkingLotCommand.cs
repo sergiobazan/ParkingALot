@@ -12,5 +12,5 @@ public sealed record CreateParkingLotCommand(
     string Street,
     decimal Amount,
     string CurrencyCode,
-    DateTime OpenAtUtc,
-    DateTime CloseAtUtc) : ICommand<Guid>;
+    TimeOnly OpenAtUtc,
+    TimeOnly CloseAtUtc) : ICommand<Guid>;
