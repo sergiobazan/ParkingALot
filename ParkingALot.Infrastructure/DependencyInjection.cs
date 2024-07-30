@@ -8,10 +8,12 @@ using ParkingALot.Domain.Abstractions;
 using ParkingALot.Domain.Bookings;
 using ParkingALot.Domain.Drivers;
 using ParkingALot.Domain.ParkingLotOwners;
+using ParkingALot.Infrastructure.BackgroundJob;
 using ParkingALot.Infrastructure.Clock;
 using ParkingALot.Infrastructure.Email;
 using ParkingALot.Infrastructure.Outbox;
 using ParkingALot.Infrastructure.Repositories;
+using Quartz;
 
 namespace ParkingALot.Infrastructure;
 
@@ -45,6 +47,23 @@ public static class DependencyInjection
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IBookingRepository, BookingRepository>();
         services.AddScoped<IBookingItemRepository, BookingItemRepository>();
+
+        services.AddQuartz(configure =>
+        {
+            var jobKey = new JobKey(nameof(ProcessDomainEventsJob));
+
+            configure.AddJob<ProcessDomainEventsJob>(opt => opt.WithIdentity(jobKey));
+
+            configure.AddTrigger(trigger => 
+                trigger
+                    .ForJob(jobKey)
+                    .WithSimpleSchedule(schedule => 
+                        schedule
+                            .WithIntervalInSeconds(10)
+                            .RepeatForever()));
+        });
+
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
         return services;
     }
