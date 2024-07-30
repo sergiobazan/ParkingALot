@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
 using ParkingALot.Application.Abstractions.DbContext;
 using ParkingALot.Application.Exceptions;
 using ParkingALot.Domain.Abstractions;
@@ -12,12 +10,9 @@ namespace ParkingALot.Infrastructure;
 
 public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContext
 {
-    private readonly IPublisher _publisher;
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IPublisher publisher)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
-    {
-        _publisher = publisher;
-    }
+    { }
 
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<ParkingLotOwner> ParkingLotOwners { get; set; }
@@ -29,39 +24,15 @@ public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContex
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = await base.SaveChangesAsync(cancellationToken);
-
-            await PublishDomainEvents();
-
-            return result;
+            return base.SaveChangesAsync(cancellationToken);
         }
         catch (DbUpdateConcurrencyException ex)
         {
             throw new ConcurrencyException("Concurrency Exception ocurred.", ex);
-        }
-    }
-
-    public async Task PublishDomainEvents()
-    {
-        var domainEvents = ChangeTracker
-            .Entries<Entity>()
-            .Select(entity => entity.Entity)
-            .SelectMany(entity =>
-            {
-                IReadOnlyList<IDomainEvent> domainEvents = entity.DomainEvents;
-
-                entity.ClearDomainEvents();
-
-                return domainEvents;
-            }).ToList();
-
-        foreach (IDomainEvent? domainEvent in domainEvents)
-        {
-            await _publisher.Publish(domainEvent);
         }
     }
 }
