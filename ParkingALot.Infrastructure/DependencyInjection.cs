@@ -10,6 +10,7 @@ using ParkingALot.Domain.Drivers;
 using ParkingALot.Domain.ParkingLotOwners;
 using ParkingALot.Infrastructure.Clock;
 using ParkingALot.Infrastructure.Email;
+using ParkingALot.Infrastructure.Outbox;
 using ParkingALot.Infrastructure.Repositories;
 
 namespace ParkingALot.Infrastructure;
@@ -24,8 +25,12 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("Database") ??
             throw new ArgumentNullException(nameof(configuration));
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention());
+        services.AddSingleton<OutboxMessageInterceptor>();
+
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+            options.UseNpgsql(connectionString)
+                .AddInterceptors(sp.GetService<OutboxMessageInterceptor>()!)
+                .UseSnakeCaseNamingConvention());
 
         services.AddScoped<IUnitOfWork>(sp =>
             sp.GetRequiredService<ApplicationDbContext>());
